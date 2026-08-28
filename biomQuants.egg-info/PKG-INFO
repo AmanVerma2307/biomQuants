@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: biomQuants
-Version: 1.0.0
+Version: 1.0.1
 Summary: An open-source package for biometric quantification: quantifiers and evaluation measures
 Home-page: https://anonymous.4open.science/r/MeasureSuite-822D
 Author: forteller2307
@@ -14,13 +14,13 @@ Dynamic: license-file
 Dynamic: summary
 
 <p align="center">
-<img src="./assets/biomQuants_Logo_v1.png" width="400" alt="" height="100"/>
+<img src="https://anonymous.4open.science/r/biomQuants-EDEF/assets/biomQuants_Logo_v1.png" width="400" alt="" height="100"/>
 </p>
 
 <h1 align="center">biomQuants</h1>
 
 <p align="center">
-<img src="https://img.shields.io/badge/Version-1.0.0-blue" alt="version"></a>
+<img src="https://img.shields.io/badge/Version-1.0.1-blue" alt="version"></a>
 <a href="https://anonymous.4open.science/r/biomQuants-EDEF/"><img src="https://img.shields.io/badge/github-repo-yellow?logo=github" alt="github"></a>
 <a href="https://anonymous.4open.science/r/MeasureSuite-822D/"><img src="https://img.shields.io/badge/Project-page-green" alt="github"></a>
 </p>
