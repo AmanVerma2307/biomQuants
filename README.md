@@ -2,7 +2,7 @@
 # biomQuants
 
 ![Version](https://img.shields.io/badge/Version-1.0.0-blue)
-![Repo](https://img.shields.io/badge/github-repo-yellow?logo=github)
+![Repo](https://img.shields.io/badge/github-repo-yellow?logo=github-link=<https://anonymous.4open.science/r/biomQuants-EDEF/>)
 ![Project repo](https://img.shields.io/badge/Project-repo-green)
 
 An open source package for biometric quantification: quantifiers and evaluation measures.
