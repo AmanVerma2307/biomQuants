@@ -1,7 +1,8 @@
-![Image alt text](/assets/biomQuants_Logo_v1.png)
-# biomQuants
+<p align="center">
+<img src="./assets/biomQuants_Logo_v1.png" width="600" alt="" width="100" height="100"/>
+</p>
 
-
+<h1 align="center">biomQuants</h1>
 
 <p align="center">
 <img src="https://img.shields.io/badge/Version-1.0.0-blue" alt="version"></a>
@@ -9,7 +10,7 @@
 <a href="https://anonymous.4open.science/r/MeasureSuite-822D/"><img src="https://img.shields.io/badge/Project-page-green" alt="github"></a>
 </p>
 
-### An open source package for biometric quantification: quantifiers and evaluation measures.
+### An open source package for biometric quantification: quantifiers and evaluation measures
 
 The package consists of several quantifiers:
 
@@ -26,7 +27,7 @@ We provide several measures:
 3. Trend match distance ($\Psi$)
 4. ICGD Score ($C_d$)
 5. Advanced acceptance score (${A_r}^*$)
-6. Standard evaluation measures:    
+6. Standard evaluation measures: nDCG, ERR, U, RPP, GRE 
 
 ## Requirements
 
@@ -42,16 +43,16 @@ We provide several measures:
 from biomQuants.qauntifers import getScores
 scores = getScores(embPath='Path to embeddings',
                     quantifier=quantifier,
-                    y_cat=labels,
-                    y_id=idLabels,
+                    y_dev=labels,
+                    y_dev_id=idLabels,
                     G_total=numCategories,
                     I_total=numIdentities)                    
 ```
 Choice of quantifiers: ['dgbqa','deltaDistance','masterFace','genCapacity','swipeQuality'] 
 
-y_cat: Category labels
+y_dev: Category labels
 
-y_id: Identity labels
+y_dev_id: Identity labels
 
 ### Evaluation measures
 1. Advanced Acceptance Score

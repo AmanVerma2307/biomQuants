@@ -1,7 +1,9 @@
-######## Importing libraries                                                                                                       
 import numpy as np
 from Levenshtein import distance
-from acceptanceScore import rank_compute_acc
+from biomQuants.acceptanceScore import rank_compute_acc
+
+import sys
+sys.path.insert(1,'./')
 
 ######## Comparison metrics
 

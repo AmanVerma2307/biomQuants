@@ -1,7 +1,7 @@
-from biomQuant.rankDev import *
-from biomQuant.icgd import *
-from biomQuant.trendMatch import *
-from biomQuant.acceptanceScore import *
+from biomQuants.rankDev import *
+from biomQuants.icgd import *
+from biomQuants.trendMatch import *
+from biomQuants.acceptanceScore import *
 
 def comp_advancedAcceptance(biomQuant,
                             e_prime,

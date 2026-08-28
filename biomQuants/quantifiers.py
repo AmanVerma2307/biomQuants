@@ -1,30 +1,27 @@
+import sys
+sys.path.insert(1,'./')
+
 import math
 import numpy as np
 import scipy.special as sp
 from scipy.spatial import distance
 
-def dgbqa(embeddings,
-          y_cat,
-          y_id,
-          num_subjects,
-          c_id):
+def dgbqa(embeddings,g_id,num_subjects,y_dev,y_dev_id):
 
     """
     DGBQA Score
 
     INPUTS:-
-    1) embeddings: Embeddings
-    2) C_id: Index Value of the category ID
-    3) num_subjects: Number of subjects
-    4) y_cat: Ground-Truth category labels
-    5) y_id: Ground-Truth Subject labels
+    1) embeddings: Feature Embeddings
+    2) g_id: Index Value of the Gesture Class
+    3) num_subjects: Number of Subjects
+    4) y_dev: Ground-Truth Gesture Labelsw
+    5) y_dev_id: Ground-Truth Subject Labels
 
     OUTPUTS:-
-    1) dgbq_score: DGQBA Score for a particular category ('g_id')
-    2) d_unq: Uniqueness for the current category
-    3) d_vrb: Variability for the current category
-    """
+    1) gbqa_delta_distance: d_c_star/d_cs, GBQA Delta Distance Computed for a particular gesture
 
+    """
     ###### Defining Essentials
     d_cs = [] # List to Maximal Intra-Subject Distance
     emb_avg_s = [] # List to Store Subject Specific Gesture Centroids
@@ -38,9 +35,9 @@ def dgbqa(embeddings,
 
         ##### Intra-Subject Distance
         #### Curating Required Gesture List from g_id and s_id
-        for idx in range(y_cat.shape[0]): # Iterating over Embeddings
+        for idx in range(y_dev.shape[0]): # Iterating over Embeddings
 
-            if(y_cat[idx] == c_id and y_id[idx] == s_id):
+            if(y_dev[idx] == g_id and y_dev_id[idx] == s_id):
                 embedding_store_s.append(embeddings[idx]) # Storing the Required Embeddings
 
         #### Computing Intra-Gesture and Intra-Subject Distances
@@ -66,7 +63,7 @@ def dgbqa(embeddings,
             emb_avg_s.append(emb_avg_s_curr)
 
     ###### Computing Avg. Maximal Intra-Subject Distance
-    d_vrb = np.average(d_cs)
+    d_cs_avg = np.average(d_cs)
     
     ###### Computing Inter-Subject Distance
     ##### Defining Essentials
@@ -84,34 +81,32 @@ def dgbqa(embeddings,
                     dist_inter.append(dist_curr) # Appending the Computed Distance to dist_curr  
 
     ##### Computing Average Inter-Subject Distance
-    d_unq = np.average(dist_inter)
+    d_c_star = np.average(dist_inter)
 
     ###### Computing GBQA Distance Delta Score
-    dgbqa_score = math.exp(d_unq - d_vrb) - (d_unq/d_vrb) # For Seen Identities
-    return dgbqa_score, d_unq, d_vrb
+    dgbqa_score = math.exp(d_c_star - d_cs_avg) - (1.0*(d_cs_avg/d_c_star)) # For Seen Identities
+    dgbqa_score_wo = math.exp(d_c_star - d_cs_avg)
+
+    return dgbqa_score, d_c_star, d_cs_avg, dgbqa_score_wo
 
 
 
-def deltaDistance(embeddings,
-                  y_cat,
-                  y_id,
-                  num_subjects,
-                  c_id):
+def deltaDistance(embeddings,g_id,num_subjects,y_dev,y_dev_id):
 
     """
-    DGBQA Score
+    Delta Distance
 
     INPUTS:-
-    1) embeddings: Embeddings
-    2) C_id: Index Value of the category ID
-    3) num_subjects: Number of subjects
-    4) y_cat: Ground-Truth category labels
-    5) y_id: Ground-Truth Subject labels
+    1) embeddings: Feature Embeddings
+    2) g_id: Index Value of the Gesture Class
+    3) num_subjects: Number of Subjects
+    4) y_dev: Ground-Truth Gesture Labels
+    5) y_dev_id: Ground-Truth Subject Labels
 
     OUTPUTS:-
-    1) delta_dist: The computed delta distance 
-    """
+    1) delta_dist: |d_cs - d_c|/d_c, Delta Distance Computed for a particular gesture
 
+    """
     ###### Defining Essentials
     d_cs = [] # List to Maximal Intra-Subject Distance
 
@@ -123,9 +118,9 @@ def deltaDistance(embeddings,
         dist_store_s = [] # List to Store Distance within subject 's_id' 
 
         ##### Curating Required Gesture List from g_id and s_id
-        for idx in range(y_cat.shape[0]): # Iterating over Embeddings
+        for idx in range(y_dev.shape[0]): # Iterating over Embeddings
 
-            if(y_cat[idx] == c_id and y_id[idx] == s_id):
+            if(y_dev[idx] == g_id and y_dev_id[idx] == s_id):
                 embedding_store_s.append(embeddings[idx]) # Storing the Required Embeddings
         
         ##### Computing Intra-Gesture and Intra-Subject Distances
@@ -386,8 +381,8 @@ def distinctiveness(embeddings, y, y_id, num_gestures, num_id):
 
 def getScores(embPath,
               quantifier,
-              y_cat,
-              y_id,
+              y_dev,
+              y_dev_id,
               G_total,
               I_total,
               normalize=1,
@@ -404,26 +399,26 @@ def getScores(embPath,
     for g_id in range(G_total):
 
         if(quantifier == 'dgbqa'):
-            scoreCurr, _, _, _ = dgbqa(embedding,g_id,I_total,y_cat,y_id)
+            scoreCurr, _, _, _ = dgbqa(embedding,g_id,I_total,y_dev,y_dev_id)
             dgbqa_score.append(scoreCurr)
 
         if(quantifier == 'deltaDistance'):
             scoreCurr = deltaDistance(embedding,
                                       g_id,
                                       I_total,
-                                      y_cat,
-                                      y_id)
+                                      y_dev,
+                                      y_dev_id)
             dgbqa_score.append(scoreCurr)
 
         if(quantifier == 'masterFace'):
-            _, d_unq, _, _ = dgbqa(embedding,g_id,I_total,y_cat,y_id)
+            _, d_unq, _, _ = dgbqa(embedding,g_id,I_total,y_dev,y_dev_id)
             scoreCurr = masterFace(d_unq,embedding.shape[-1])
             dgbqa_score.append(scoreCurr)
 
         if(quantifier == 'genCapacity'):
             scoreCurr = generativeCapacity(embedding,
-                                           y_cat,
-                                           y_id,
+                                           y_dev,
+                                           y_dev_id,
                                            G_total,
                                            I_total,
                                            embedding.shape[-1],
@@ -432,7 +427,7 @@ def getScores(embPath,
 
         if(quantifier == 'swipeQuality'):
             scoreCurr = swipeQuality(embedding,
-                                     y_cat,
+                                     y_dev,
                                      G_total,
                                      g_id)
             dgbqa_score.append(scoreCurr)
@@ -446,7 +441,6 @@ def getScores(embPath,
         dgbqa_score = np.mean(dgbqa_score,keepdims=False)
 
     return dgbqa_score
-
 
 if __name__ == "__main__":
     x = np.load('./Embeddings/MS_MF_1-1pt5_Tiny.npz',allow_pickle=True)['arr_0']

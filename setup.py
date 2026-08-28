@@ -10,8 +10,8 @@ setup(
     name='biomQuant', # name of packe which will be package dir below project
     version='1.0.0',
     url='https://anonymous.4open.science/r/MeasureSuite-822D',
-    author='Mjolnir2307',
-    description='A package for biometric quantification, ',
+    author='forteller2307',
+    description='An open-source package for biometric quantification: quantifiers and evaluation measures',
     long_description=long_description,
     long_description_content_type='text/markdown',
     packages=find_packages(),
