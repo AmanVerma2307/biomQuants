@@ -8,7 +8,7 @@ with open(path.join(working_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='biomQuants', # name of packe which will be package dir below project
-    version='1.0.0',
+    version='1.0.1',
     url='https://anonymous.4open.science/r/MeasureSuite-822D',
     author='forteller2307',
     description='An open-source package for biometric quantification: quantifiers and evaluation measures',
