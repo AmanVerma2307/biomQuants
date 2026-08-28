@@ -1,0 +1,15 @@
+LICENSE.txt
+README.md
+setup.py
+biomQuants/__init__.py
+biomQuants/acceptanceScore.py
+biomQuants/advancedAcceptance.py
+biomQuants/icgd.py
+biomQuants/measures.py
+biomQuants/quantifiers.py
+biomQuants/rankDev.py
+biomQuants/trendMatch.py
+biomQuants.egg-info/PKG-INFO
+biomQuants.egg-info/SOURCES.txt
+biomQuants.egg-info/dependency_links.txt
+biomQuants.egg-info/top_level.txt

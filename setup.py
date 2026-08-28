@@ -7,7 +7,7 @@ with open(path.join(working_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='biomQuant', # name of packe which will be package dir below project
+    name='biomQuants', # name of packe which will be package dir below project
     version='1.0.0',
     url='https://anonymous.4open.science/r/MeasureSuite-822D',
     author='forteller2307',
