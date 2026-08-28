@@ -1,5 +1,5 @@
 <p align="center">
-<img src="./assets/biomQuants_Logo_v1.png" width="600" alt="" width="100" height="100"/>
+<img src="./assets/biomQuants_Logo_v1.png" width="400" alt="" height="100"/>
 </p>
 
 <h1 align="center">biomQuants</h1>
